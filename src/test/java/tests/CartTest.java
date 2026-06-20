@@ -34,7 +34,7 @@ public class CartTest extends BaseTest {
             page1.setConfirmPayment();
             String khaltiMessage= page1.khaltiFailedToast();
             Assert.assertEquals(khaltiMessage, "An error occurred while initiating the payment",
-                    "khalti toast failurer mismatch");
+                    "khalti toast failure mismatch");
             page1.setCodBtn();
             page1.setConfirmPayment();
          String orderMessage= page1.orderSuccessToast();

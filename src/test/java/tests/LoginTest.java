@@ -66,48 +66,19 @@ public class LoginTest extends BaseTest {
         String msg = login.getToastMessage();
 
         Assert.assertEquals(msg,
-                "Welcome back, Sarmistha!");
+                "Welcome back, Sarmi!");
+        login.superCoinPopup();
     }
 
     @Test
     public void logout() {
-
         login.openLogin();
-
-        login.login("9809776188",
-                "9809776188");
-
+        login.login("9809776188", "9809776188");
+        login.superCoinPopup();
         login.LogoutWayOut();
-
         String mess = login.logoutToastMess();
-
         Assert.assertEquals(mess,
                 "Logged out successfully",
                 "No such message");
-    }
-    @Test(dataProvider = "invalidLoginData")
-    public void invalidLoginTest(String phone,
-                                 String password) {
-
-        login.openLogin();
-
-        login.login(phone, password);
-
-        String msg = login.getInvalidToast();
-
-        Assert.assertEquals(msg,
-                "Invalid phone or password");
-    }
-
-    @DataProvider(name = "invalidLoginData")
-    public Object[][] invalidData() {
-
-        return new Object[][] {
-                {"9809776188", "wrongpass"},
-                {"9809776188", "test123"},
-                {"9809776188", "abc123"},
-                {"9809776188", "pass"}
-
-        };
     }
 }

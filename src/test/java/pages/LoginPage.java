@@ -1,7 +1,9 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,13 +23,13 @@ public class LoginPage {
     By phone = By.name("phone");
     By password = By.name("password");
     By submit = By.xpath("//button[text()='Submit']");
-
-    By toast = By.xpath("//div[contains (text(),'Welcome back, Sarmistha!')]");
+    By supercoinCloseBtn = By.cssSelector("button.absolute.top-4.right-4");
+    By Successtoast = By.xpath("//div[contains (text(),'Welcome back, Sarmistha!')]");
     By phoneError = By.xpath("//span[text()='Invalid phone number.']");
     By passwordError = By.xpath("//div[contains(text(),'Password is required.')]");
     By invalidToast =By.xpath("//div [contains (text (), 'Invalid phone or password')]");
     By invalidPhoneError = By.xpath("//span[text()='Invalid phone number.']");
-    By logoutWay = By.xpath("//button[contains(.,'sarmisthadc2@gmail.com')]");
+    By logoutWay = By.xpath("//button[contains(.,'sarmidc2@gmail.com')]");
     By logoutBtn= By.xpath("//span[text()='Log Out']");
     By logoutToast= By.xpath("//div[contains (text(),'Logged out successfully')]");
     // Actions
@@ -42,7 +44,7 @@ public class LoginPage {
     }
 
     public String getToastMessage() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(toast)).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(Successtoast)).getText();
     }
 
     public String getPhoneError() {
@@ -64,5 +66,14 @@ public class LoginPage {
     }
     public String logoutToastMess() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(logoutToast)).getText();
+    }
+    public void superCoinPopup() {
+        try {
+            WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(supercoinCloseBtn));
+            closeButton.click();
+            System.out.println("Supercoin popup dismissed successfully.");
+        } catch (TimeoutException e) {
+            System.out.println("Supercoin popup did not appear. Proceeding with the test flow.");
+        }
     }
 }
