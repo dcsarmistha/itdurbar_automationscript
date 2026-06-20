@@ -24,15 +24,19 @@ public class BaseTest {
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--window-size=1920,1080");
+            options.addArguments("--remote-allow-origins=*");
+        } else {
+            options.addArguments("--start-maximized");
+            options.addArguments("--remote-allow-origins=*");
         }
 
         driver = new ChromeDriver(options);
 
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        driver.manage().window().maximize();
+        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
     }
+
     @AfterMethod
     public void tearDown() {
         if (driver != null) {
