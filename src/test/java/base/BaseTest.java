@@ -15,7 +15,6 @@ public class BaseTest {
 
         ChromeOptions options = new ChromeOptions();
 
-        // 👇 detect GitHub Actions (CI environment)
         boolean isCI = System.getenv("CI") != null;
 
         if (isCI) {
@@ -23,10 +22,14 @@ public class BaseTest {
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--window-size=1920,1080");
+            options.addArguments("--remote-allow-origins=*");
+        } else {
+            // runs locally with visible Chrome window
+            options.addArguments("--start-maximized");
+            options.addArguments("--remote-allow-origins=*");
         }
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
     }
 
     @AfterMethod
