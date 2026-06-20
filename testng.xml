@@ -6,7 +6,7 @@
     </listeners>
 <test name="Cart test">
         <classes>
-            <class name="tests.ProductSearchTest"/>
+            <class name="tests.LoginTest"/>
         </classes>
 </test>
 </suite>

@@ -85,7 +85,6 @@ public class LoginTest extends BaseTest {
                 "Logged out successfully",
                 "No such message");
     }
-    // DATAPROVIDER USED HERE
     @Test(dataProvider = "invalidLoginData")
     public void invalidLoginTest(String phone,
                                  String password) {
@@ -100,8 +99,6 @@ public class LoginTest extends BaseTest {
                 "Invalid phone or password");
     }
 
-
-    // 🔥 DATAPROVIDER METHOD
     @DataProvider(name = "invalidLoginData")
     public Object[][] invalidData() {
 

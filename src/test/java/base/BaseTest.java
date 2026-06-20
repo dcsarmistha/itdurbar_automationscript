@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.time.Duration;
+
 public class BaseTest {
 
     protected WebDriver driver;
@@ -22,16 +24,15 @@ public class BaseTest {
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--window-size=1920,1080");
-            options.addArguments("--remote-allow-origins=*");
-        } else {
-            // runs locally with visible Chrome window
-            options.addArguments("--start-maximized");
-            options.addArguments("--remote-allow-origins=*");
         }
 
         driver = new ChromeDriver(options);
-    }
 
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        driver.manage().window().maximize();
+    }
     @AfterMethod
     public void tearDown() {
         if (driver != null) {
