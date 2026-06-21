@@ -24,7 +24,7 @@ public class LoginPage {
     By password = By.name("password");
     By submit = By.xpath("//button[text()='Submit']");
     By supercoinCloseBtn = By.cssSelector("button.absolute.top-4.right-4");
-    By Successtoast = By.xpath("//div[contains (text(),'Welcome back, Sarmistha!')]");
+    By Successtoast = By.xpath("//div[contains (text(),'Welcome back, Sarmi!')]");
     By phoneError = By.xpath("//span[text()='Invalid phone number.']");
     By passwordError = By.xpath("//div[contains(text(),'Password is required.')]");
     By invalidToast =By.xpath("//div [contains (text (), 'Invalid phone or password')]");

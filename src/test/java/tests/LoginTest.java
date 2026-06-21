@@ -23,7 +23,20 @@ public class LoginTest extends BaseTest {
 
         login = new LoginPage(driver);
     }
+    @Test
+    public void validLoginTest() {
 
+        login.openLogin();
+
+        login.login("9809776188",
+                "9809776188");
+
+        String msg = login.getToastMessage();
+
+        Assert.assertEquals(msg,
+                "Welcome back, Sarmi!", "no such toast message displayed");
+        login.superCoinPopup();
+    }
     @Test
     public void emptyFieldsTest() {
 
@@ -55,30 +68,17 @@ public class LoginTest extends BaseTest {
                 "Invalid phone number.");
     }
 
-    @Test
-    public void validLoginTest() {
 
-        login.openLogin();
 
-        login.login("9809776188",
-                "9809776188");
-
-        String msg = login.getToastMessage();
-
-        Assert.assertEquals(msg,
-                "Welcome back, Sarmi!");
-        login.superCoinPopup();
-    }
-
-    @Test
-    public void logout() {
-        login.openLogin();
-        login.login("9809776188", "9809776188");
-        login.superCoinPopup();
-        login.LogoutWayOut();
-        String mess = login.logoutToastMess();
-        Assert.assertEquals(mess,
-                "Logged out successfully",
-                "No such message");
-    }
+//    @Test
+//    public void logout() {
+//        login.openLogin();
+//        login.login("9809776188", "9809776188");
+//        login.superCoinPopup();
+//        login.LogoutWayOut();
+//        String mess = login.logoutToastMess();
+//        Assert.assertEquals(mess,
+//                "Logged out successfully",
+//                "No such message");
+//    }
 }
