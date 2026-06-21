@@ -38,9 +38,11 @@ public class LoginPage {
     }
 
     public void login(String phoneNum, String pass) {
-        driver.findElement(phone).sendKeys(phoneNum);
-        driver.findElement(password).sendKeys(pass);
-        driver.findElement(submit).click();
+        WebElement phoneField= wait.until(ExpectedConditions.visibilityOfElementLocated(phone));
+        phoneField.sendKeys(phoneNum);
+       WebElement passwordField=wait.until(ExpectedConditions.visibilityOfElementLocated(password));
+       passwordField.sendKeys(pass);
+        wait.until(ExpectedConditions.elementToBeClickable(submit)).click();
     }
 
     public String getToastMessage() {
