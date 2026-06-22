@@ -34,13 +34,16 @@ public class LoginPage {
     By logoutToast= By.xpath("//div[contains (text(),'Logged out successfully')]");
     // Actions
     public void openLogin() {
+        wait.until(ExpectedConditions.urlContains("https://itd-staging.ktm.yetiappcloud.com/"));
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
     }
 
     public void login(String phoneNum, String pass) {
         WebElement phoneField= wait.until(ExpectedConditions.visibilityOfElementLocated(phone));
         phoneField.sendKeys(phoneNum);
+        phoneField.clear();
        WebElement passwordField=wait.until(ExpectedConditions.visibilityOfElementLocated(password));
+       passwordField.clear();
        passwordField.sendKeys(pass);
         wait.until(ExpectedConditions.elementToBeClickable(submit)).click();
     }

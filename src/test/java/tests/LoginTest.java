@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -8,6 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+
+import java.time.Duration;
 
 public class LoginTest extends BaseTest {
 
@@ -20,7 +23,7 @@ public class LoginTest extends BaseTest {
     public void setUpPage() {
 
         driver.get("https://itd-staging.ktm.yetiappcloud.com/");
-
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until(webDriver -> ((org.openqa.selenium.JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         login = new LoginPage(driver);
     }
     @Test
