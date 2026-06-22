@@ -25,7 +25,7 @@ jobs:
 
       - name: Run Selenium tests
         run: mvn clean test
-        continue-on-error: true
+
 
       - name: Upload test reports
         uses: actions/upload-artifact@v4
