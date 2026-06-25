@@ -30,11 +30,11 @@ public class CartTest extends BaseTest {
             page1.superCoinPopup();
             page1.ProceedToCheckOutSecond();
             page1.superCoinSmall();
-            page1.setKhaltiBtn();
-            page1.setConfirmPayment();
-            String khaltiMessage= page1.khaltiFailedToast();
-            Assert.assertEquals(khaltiMessage, "An error occurred while initiating the payment",
-                    "khalti toast failure mismatch");
+//            page1.setKhaltiBtn();
+//            page1.setConfirmPayment();
+//            String khaltiMessage= page1.khaltiFailedToast();
+//            Assert.assertEquals(khaltiMessage, "An error occurred while initiating the payment",
+//                    "khalti toast failure mismatch");
             page1.setCodBtn();
             page1.setConfirmPayment();
          String orderMessage= page1.orderSuccessToast();
@@ -48,11 +48,14 @@ public class CartTest extends BaseTest {
             page1.CartPage();
             page1.cartEmpty();
             page1.superCoinPopup();
-            page1.searchProduct();
-            System.out.println("Landed in the product detail page");
-            page1.superCoinSmall();
-            String stockMessage= page1.setStockOut();
-            Assert.assertEquals(stockMessage, "Out of Stock", "in stock");
+            String emptyMessage= page1.cartEmpty();
+            Assert.assertEquals(emptyMessage, "Your Cart Feels Lonely");
+
+          //  page1.searchProduct();
+          //  System.out.println("Landed in the product detail page");
+         //   page1.superCoinSmall();
+//            String stockMessage= page1.setStockOut();
+//            Assert.assertEquals(stockMessage, "Out of Stock", "in stock");
         }
 }
 

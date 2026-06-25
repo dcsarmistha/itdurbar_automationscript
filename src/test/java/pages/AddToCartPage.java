@@ -32,6 +32,7 @@ public class AddToCartPage {
             "nal Monitor – 99% Adobe RGB, USB-C 60W, Hardware Calibration - BLACK']");
     By stockOut= By.xpath("//h3[normalize-space()='Out of Stock']");
     By notifyBtn= By.xpath("//button[normalize-space()='Notify When Available']");
+
     public AddToCartPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -98,15 +99,18 @@ public class AddToCartPage {
             System.out.println("Box did not appear. Proceeding with the rest of the flow.");
         }
     }
-    public void cartEmpty(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emptyCart)).click();
+    public String cartEmpty(){
+       return wait.until(ExpectedConditions.visibilityOfElementLocated(cartEmptyMess)).getText();
     }
-    public void searchProduct(){
-      WebElement product= wait.until(ExpectedConditions.presenceOfElementLocated(productOne));
-      Actions actions= new Actions(driver);
-      actions.scrollToElement(product).perform();
-     wait.until(ExpectedConditions.elementToBeClickable(product)).click();
-    }
+//    public void cartEmpty(){
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(emptyCart)).click();
+//    }
+//    public void searchProduct(){
+//      WebElement product= wait.until(ExpectedConditions.presenceOfElementLocated(productOne));
+//      Actions actions= new Actions(driver);
+//      actions.scrollToElement(product).perform();
+//     wait.until(ExpectedConditions.elementToBeClickable(product)).click();
+//    }
     public String setStockOut(){
         return wait.until(ExpectedConditions.visibilityOfElementLocated(stockOut)).getText();
     }
