@@ -26,6 +26,13 @@ public class ExtentManager {
 //appears in report header
             extent.setSystemInfo("Framework", "POM + TestNG");
             extent.setSystemInfo("Tester", "You");
+            extent.setSystemInfo("Environment", "QA");
+            extent.setSystemInfo("Browser", "Chrome");
+            extent.setSystemInfo("OS", System.getProperty("os.name"));
+            extent.setSystemInfo("Java Version", System.getProperty("java.version"));
+            extent.setSystemInfo("Execution Type", "Regression Testing");
+            extent.setSystemInfo("Project", "ProjectItDurbar");
+
         }
 
         return extent;

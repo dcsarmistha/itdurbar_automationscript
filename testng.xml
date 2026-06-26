@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="listeners.TestListener"/>
     </listeners>
-<test name="Login test">
+<test name="Cart test">
         <classes>
             <class name="tests.CartTest"/>
         </classes>

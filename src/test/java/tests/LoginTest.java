@@ -23,7 +23,6 @@ public class LoginTest extends BaseTest {
     public void setUpPage() {
 
         driver.get("https://itd-staging.ktm.yetiappcloud.com/");
-        new WebDriverWait(driver, Duration.ofSeconds(30)).until(webDriver -> ((org.openqa.selenium.JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         login = new LoginPage(driver);
     }
     @Test

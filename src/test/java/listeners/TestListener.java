@@ -2,46 +2,110 @@ package listeners;
 
 import base.BaseTest;
 import com.aventstack.extentreports.*;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
+import org.openqa.selenium.WebDriver;
+import org.testng.*;
 import utils.ExtentManager;
 import utils.ScreenshotsUtil;
-//to listen to test events like start, pass, fail
+
 public class TestListener implements ITestListener {
-//full html report
+
+
     ExtentReports extent = ExtentManager.getExtentReports();
-    //one test case inside the report
-    ExtentTest test;
+
+
+    // ThreadLocal helps when running tests parallel
+    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+
 
     @Override
     public void onTestStart(ITestResult result) {
-        //new test entry with name same as method name
-        test = extent.createTest(result.getMethod().getMethodName());
+
+        ExtentTest extentTest =
+                extent.createTest(result.getMethod().getMethodName());
+
+        test.set(extentTest);
+
+
+        test.get().info("Test execution started");
     }
+
+
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        //on test pass success message
-        test.pass("Test Passed");
+
+        test.get()
+                .log(Status.PASS,
+                        "Test Passed Successfully");
+
     }
+
+
+
     @Override
     public void onTestFailure(ITestResult result) {
-//throws actual error and exception
-        test.fail(result.getThrowable());
-        //current test class object cast into base test to access the driver
-        BaseTest base = (BaseTest) result.getInstance();
-        //take ss using webdriver and save file with test name
-        String path = ScreenshotsUtil.captureScreenshot(
-                base.getDriver(),
-                result.getMethod().getMethodName()
-        );
-// ss added to the report
-        test.addScreenCaptureFromPath(path);
+
+
+        test.get()
+                .log(Status.FAIL,
+                        "Test Failed");
+
+
+        // capture actual error message
+        test.get()
+                .fail(result.getThrowable());
+
+
+        // get driver from test class
+        Object currentClass =
+                result.getInstance();
+
+
+        WebDriver driver =
+                ((BaseTest) currentClass).getDriver();
+
+
+
+        String screenshotPath =
+                ScreenshotsUtil.captureScreenshot(
+                        driver,
+                        result.getName()
+                );
+
+
+        test.get()
+                .addScreenCaptureFromPath(screenshotPath);
+
+
+        test.get()
+                .info("Screenshot captured: "
+                        + screenshotPath);
+
     }
+
+
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+
+
+        test.get()
+                .log(Status.SKIP,
+                        "Test skipped");
+
+
+        test.get()
+                .skip(result.getThrowable());
+
+    }
+
+
+
     @Override
     public void onFinish(ITestContext context) {
-        //write everything into the html file , finalizes report and saves it to the disk
+
         extent.flush();
+
     }
+
 }
