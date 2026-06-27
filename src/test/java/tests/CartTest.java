@@ -12,9 +12,9 @@ public class CartTest extends BaseTest {
     LoginPage login;
     @BeforeMethod
     public void setup3(){
-        driver.get("https://itd-staging.ktm.yetiappcloud.com/");
-        page1= new AddToCartPage(driver);
-        login= new LoginPage(driver);
+        getDriver().get("https://itd-staging.ktm.yetiappcloud.com/");
+        page1= new AddToCartPage(getDriver());
+        login= new LoginPage(getDriver());
     }
     @Test
     public void AddToCartTest() {

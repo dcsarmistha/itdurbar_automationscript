@@ -1,110 +1,65 @@
 package listeners;
 
-import base.BaseTest;
+
 import com.aventstack.extentreports.*;
-import org.openqa.selenium.WebDriver;
 import org.testng.*;
-import utils.ExtentManager;
-import utils.ScreenshotsUtil;
+
+import utils.*;
 
 public class TestListener implements ITestListener {
 
 
-    ExtentReports extent = ExtentManager.getExtentReports();
+    ExtentTest test;
 
 
-    // ThreadLocal helps when running tests parallel
-    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+    public void onTestStart(ITestResult result){
 
-
-    @Override
-    public void onTestStart(ITestResult result) {
-
-        ExtentTest extentTest =
-                extent.createTest(result.getMethod().getMethodName());
-
-        test.set(extentTest);
-
-
-        test.get().info("Test execution started");
-    }
-
-
-
-    @Override
-    public void onTestSuccess(ITestResult result) {
-
-        test.get()
-                .log(Status.PASS,
-                        "Test Passed Successfully");
+        test = ExtentManager
+                .getReport()
+                .createTest(result.getName());
 
     }
 
 
+    public void onTestSuccess(ITestResult result){
 
-    @Override
-    public void onTestFailure(ITestResult result) {
+        test.pass("Test Passed");
 
-
-        test.get()
-                .log(Status.FAIL,
-                        "Test Failed");
+    }
 
 
-        // capture actual error message
-        test.get()
-                .fail(result.getThrowable());
+    public void onTestFailure(ITestResult result){
 
 
-        // get driver from test class
-        Object currentClass =
-                result.getInstance();
+        test.fail(result.getThrowable());
 
 
-        WebDriver driver =
-                ((BaseTest) currentClass).getDriver();
-
-
-
-        String screenshotPath =
-                ScreenshotsUtil.captureScreenshot(
-                        driver,
+        String screenshot =
+                ScreenshotsUtils.captureScreenshot(
                         result.getName()
                 );
 
 
-        test.get()
-                .addScreenCaptureFromPath(screenshotPath);
+        try {
 
+            test.addScreenCaptureFromPath(
+                    screenshot
+            );
 
-        test.get()
-                .info("Screenshot captured: "
-                        + screenshotPath);
+        }catch(Exception e){
 
-    }
+            e.printStackTrace();
 
-
-
-    @Override
-    public void onTestSkipped(ITestResult result) {
-
-
-        test.get()
-                .log(Status.SKIP,
-                        "Test skipped");
-
-
-        test.get()
-                .skip(result.getThrowable());
+        }
 
     }
 
 
+    public void onFinish(ITestContext context){
 
-    @Override
-    public void onFinish(ITestContext context) {
-
-        extent.flush();
+        ExtentManager
+                .getReport()
+                .flush();
 
     }
 

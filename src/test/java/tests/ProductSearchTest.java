@@ -12,8 +12,8 @@ ProductPageFilter filter;
 @BeforeMethod
 public void setTest(){
 
-    driver.get("https://itd-staging.ktm.yetiappcloud.com/");
-    filter= new ProductPageFilter(driver);
+    getDriver().get("https://itd-staging.ktm.yetiappcloud.com/");
+    filter= new ProductPageFilter(getDriver());
 }
 @Test
 public void searchCategory(){

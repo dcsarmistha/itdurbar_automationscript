@@ -14,16 +14,15 @@ import java.time.Duration;
 
 public class LoginTest extends BaseTest {
 
-    private static final Logger log =
-            LoggerFactory.getLogger(LoginTest.class);
+
 
     LoginPage login;
 
     @BeforeMethod
     public void setUpPage() {
 
-        driver.get("https://itd-staging.ktm.yetiappcloud.com/");
-        login = new LoginPage(driver);
+        getDriver().get("https://itd-staging.ktm.yetiappcloud.com/");
+        login = new LoginPage(getDriver());
     }
     @Test
     public void validLoginTest() {

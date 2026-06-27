@@ -13,8 +13,8 @@ public class ProductTest extends BaseTest {
 LoginPage login;
     @BeforeMethod
     public void setUpTest(){
-        driver.get("https://itd-staging.ktm.yetiappcloud.com/");
-        product= new ProductPage(driver);
+        getDriver().get("https://itd-staging.ktm.yetiappcloud.com/");
+        product= new ProductPage(getDriver());
     }
     @Test
     public void ProductMethod () throws InterruptedException {
